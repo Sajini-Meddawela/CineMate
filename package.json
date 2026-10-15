@@ -1,20 +1,22 @@
 {
-  "name": "movie-watchlist",
+  "name": "cinemate-personal-library",
   "private": true,
   "version": "1.0.0",
   "type": "commonjs",
   "scripts": {
-    "dev": "concurrently \"vite\" \"node src/server/index.js\"",
-    "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "dev": "concurrently -k \"vite\" \"node src/server/index.js\"",
+    "build": "tsc -p tsconfig.app.json && tsc -p tsconfig.node.json && vite build",
+    "lint": "tsc -p tsconfig.app.json --noEmit && node --check src/server/index.js",
+    "preview": "vite preview",
+    "start": "node src/server/index.js",
+    "test": "node --test tests/*.test.js"
   },
   "dependencies": {
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
     "axios": "^1.6.7",
     "bcryptjs": "^2.4.3",
-    "better-sqlite3": "^9.4.3",
+    "better-sqlite3": "^12.11.1",
     "concurrently": "^8.2.2",
     "cors": "^2.8.5",
     "express": "^4.18.3",
@@ -40,5 +42,8 @@
     "tailwindcss": "^3.4.1",
     "typescript": "^5.2.2",
     "vite": "^5.1.4"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

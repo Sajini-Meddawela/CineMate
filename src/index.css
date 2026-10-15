@@ -2,46 +2,128 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  color-scheme: dark;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #000;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
 body {
   @apply bg-black text-white;
+  min-width: 320px;
+  margin: 0;
 }
 
-/* Custom scrollbar */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #f87171;
+  outline-offset: 2px;
+}
+
+::selection {
+  background: rgb(220 38 38 / 45%);
+  color: white;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
-
 ::-webkit-scrollbar-track {
   @apply bg-zinc-900;
 }
-
 ::-webkit-scrollbar-thumb {
-  @apply bg-red-600 rounded-full;
+  @apply rounded-full bg-zinc-700;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-red-700;
+  @apply bg-red-600;
 }
 
-/* Smooth transitions */
-* {
-  @apply transition-colors duration-200;
-}
-
-/* Netflix-style card hover effects */
+/* Netflix-inspired cinematic poster cards */
 .movie-card {
   @apply transform transition-all duration-300;
 }
-
 .movie-card:hover {
-  @apply scale-105 z-10;
+  @apply z-10 scale-[1.03];
 }
 
-/* Custom button styles */
-.btn-primary {
-  @apply bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-200;
+@layer components {
+  .nav-link {
+    @apply inline-flex items-center gap-2 rounded-lg px-2.5 py-2 text-sm font-medium text-zinc-400 transition hover:bg-zinc-900 hover:text-white sm:px-3;
+  }
+
+  .nav-link-active {
+    @apply bg-zinc-900 text-white;
+  }
+
+  .btn-primary {
+    @apply rounded-md bg-red-600 font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .btn-secondary {
+    @apply rounded-md border border-zinc-700 bg-zinc-800 font-semibold text-white transition hover:bg-zinc-700;
+  }
+
+  .form-label {
+    @apply mb-1 block text-sm font-medium text-zinc-300;
+  }
+
+  .form-input {
+    @apply w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-white placeholder:text-zinc-500 transition focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-600/30;
+  }
 }
 
-.btn-secondary {
-  @apply bg-zinc-800 hover:bg-zinc-700 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-200;
+.spinner {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 3px solid rgb(255 255 255 / 12%);
+  border-top-color: #dc2626;
+  border-radius: 9999px;
+  animation: cinemate-spin 0.8s linear infinite;
+}
+.spinner-small {
+  width: 1rem;
+  height: 1rem;
+  border-width: 2px;
+}
+@keyframes cinemate-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
